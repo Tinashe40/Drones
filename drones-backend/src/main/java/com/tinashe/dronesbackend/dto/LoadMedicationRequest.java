@@ -1,8 +1,6 @@
 package com.tinashe.dronesbackend.dto;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.List;
@@ -10,8 +8,6 @@ import java.util.List;
 @Data
 public class LoadMedicationRequest {
 
-    @NotNull
-    @Size(min = 1, message = "At least one medication item must be provided")
-    @Valid
-    private List<MedicationDto> medications;
+    @NotEmpty(message = "Medication codes cannot be empty")
+    private List<String> medicationCodes;
 }

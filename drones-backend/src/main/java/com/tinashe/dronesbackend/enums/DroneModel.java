@@ -1,4 +1,4 @@
-package com.tinashe.dronesbackend.model;
+package com.tinashe.dronesbackend.enums;
 
 public enum DroneModel {
     LIGHTWEIGHT,

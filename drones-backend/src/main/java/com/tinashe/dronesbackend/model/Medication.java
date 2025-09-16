@@ -1,27 +1,39 @@
 package com.tinashe.dronesbackend.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.Data;
+import com.tinashe.dronesbackend.common.BaseEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import lombok.*;
 
 @Entity
-@Data
-public class Medication {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class Medication extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Pattern(regexp = "^[a-zA-Z0-9_-]+$")
-    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @DecimalMin(value = "0.0")
-    private double weight;
+    @Column(nullable = false)
+    private int weight;
 
-    @Pattern(regexp = "^[A-Z0-9_]+$")
-    @NotNull
+    @Column(nullable = false, unique = true)
     private String code;
 
     private String imageUrl;
+
+    @Override
+    public String toString() {
+        return "Medication{"
+                + "name='" + name + "'" +
+                ", weight=" + weight +
+                ", code='" + code + "'" +
+                ", imageUrl='" + imageUrl + "'" +
+                "}";
+    }
 }

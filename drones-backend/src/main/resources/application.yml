@@ -1,18 +1,24 @@
-spring.datasource.url=jdbc:h2:mem:dronedb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.defer-datasource-initialization=true
+spring:
+  datasource:
+    url: jdbc:h2:mem:dronedb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    show-sql: true
 
-# Show SQL queries
-spring.jpa.show-sql=true
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-# Logging
-logging.level.org.hibernate.SQL=DEBUG
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
-
-# Swagger UI
-springdoc.swagger-ui.path=/swagger-ui.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

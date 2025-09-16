@@ -1,45 +1,51 @@
 package com.tinashe.dronesbackend.model;
 
+import com.tinashe.dronesbackend.common.BaseEntity;
+import com.tinashe.dronesbackend.enums.DroneModel;
+import com.tinashe.dronesbackend.enums.DroneState;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-public class Drone {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class Drone extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true)
-    @Size(max = 100)
-    @NotNull
+    @Column(length = 100, unique = true, nullable = false)
     private String serialNumber;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(nullable = false)
     private DroneModel model;
 
-    @DecimalMin(value = "0.0")
-    @DecimalMax(value = "500.0")
-    private double weightLimit; // grams
+    @Column(nullable = false)
+    private int weightLimit;
 
-    @Min(0)
-    @Max(100)
-    private int batteryCapacity; // percentage
+    @Column(nullable = false)
+    private int batteryCapacity;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(nullable = false)
     private DroneState state;
 
-    @ManyToMany
-    @JoinTable(
-            name = "drone_medications",
-            joinColumns = @JoinColumn(name = "drone_id"),
-            inverseJoinColumns = @JoinColumn(name = "medication_id")
-    )
-    private List<Medication> medications;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "drone_id")
+    private List<Medication> medications = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Drone{"
+                + "serialNumber='" + serialNumber + "'"
+                + ", model=" + model
+                + ", weightLimit=" + weightLimit
+                + ", batteryCapacity=" + batteryCapacity
+                + ", state=" + state
+                + "}";
+    }
 }

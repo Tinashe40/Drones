@@ -1,29 +1,39 @@
 package com.tinashe.dronesbackend.scheduler;
 
+import com.tinashe.dronesbackend.enums.DroneState;
 import com.tinashe.dronesbackend.model.Drone;
+import com.tinashe.dronesbackend.repository.DroneRepository;
 import com.tinashe.dronesbackend.service.AuditService;
-import com.tinashe.dronesbackend.service.DroneService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class DroneBatteryCheckScheduler {
 
-    private final DroneService droneService;
+    private final DroneRepository droneRepository;
     private final AuditService auditService;
 
-    // Schedule to run every 5 minutes (300000 ms)
-    @Scheduled(fixedRate = 300000)
-    public void checkDroneBatteryLevels() {
-        List<Drone> drones = droneService.getAllDrones();
-        for (Drone drone : drones) {
-            auditService.logBatteryEvent(drone.getSerialNumber(), drone.getBatteryCapacity());
-            // In a real scenario, you might want to log this to a file or a more robust logging system
-            System.out.println(String.format("Drone %s battery level: %d%%", drone.getSerialNumber(), drone.getBatteryCapacity()));
-        }
+    @Scheduled(fixedRate = 300000) // 5 minutes
+    public void checkBatteryLevels() {
+        log.info("Running scheduled task to check drone battery levels...");
+        List<Drone> drones = droneRepository.findAll();
+        drones.forEach(drone -> {
+            auditService.logBatteryLevel(drone);
+            // Simulate battery drain for non-idle drones
+            if (drone.getState() != DroneState.IDLE) {
+                int currentBattery = drone.getBatteryCapacity();
+                if (currentBattery > 0) {
+                    drone.setBatteryCapacity(currentBattery - 1);
+                    droneRepository.save(drone);
+                }
+            }
+        });
+        log.info("Finished checking drone battery levels.");
     }
 }
