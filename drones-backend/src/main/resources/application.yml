@@ -5,7 +5,14 @@ spring.datasource.password=
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.h2.console.enabled=true
 spring.jpa.hibernate.ddl-auto=update
+spring.jpa.defer-datasource-initialization=true
+
+# Show SQL queries
+spring.jpa.show-sql=true
 
 # Logging
 logging.level.org.hibernate.SQL=DEBUG
 logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+# Swagger UI
+springdoc.swagger-ui.path=/swagger-ui.html
