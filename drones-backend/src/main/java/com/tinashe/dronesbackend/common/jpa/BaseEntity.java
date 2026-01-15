@@ -1,4 +1,4 @@
-package com.tinashe.dronesbackend.common;
+package com.tinashe.dronesbackend.common.jpa;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "custom-id")
+    private String id;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

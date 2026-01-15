@@ -1,12 +1,11 @@
 package com.tinashe.dronesbackend.model;
 
-import com.tinashe.dronesbackend.common.BaseEntity;
+import com.tinashe.dronesbackend.common.jpa.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter
@@ -14,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@GenericGenerator(name = "custom-id", strategy = "com.tinashe.dronesbackend.common.jpa.id.CustomIdGenerator", parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "med"))
 public class Medication extends BaseEntity {
 
     @Column(nullable = false)

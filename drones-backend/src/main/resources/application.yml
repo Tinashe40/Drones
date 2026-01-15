@@ -1,14 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:dronedb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
+    url: jdbc:mysql://localhost:3306/drones
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: tina
+    password: sudo0047
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true

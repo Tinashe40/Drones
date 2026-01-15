@@ -1,16 +1,19 @@
 package com.tinashe.dronesbackend.model;
 
-import com.tinashe.dronesbackend.common.BaseEntity;
+import com.tinashe.dronesbackend.common.jpa.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@GenericGenerator(name = "custom-id", strategy = "com.tinashe.dronesbackend.common.jpa.id.CustomIdGenerator", parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "aud"))
 public class AuditLog extends BaseEntity {
 
     @NotNull

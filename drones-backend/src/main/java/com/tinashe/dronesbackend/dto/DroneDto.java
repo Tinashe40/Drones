@@ -1,5 +1,6 @@
 package com.tinashe.dronesbackend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tinashe.dronesbackend.enums.DroneModel;
 import com.tinashe.dronesbackend.enums.DroneState;
 import jakarta.validation.constraints.*;
@@ -11,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DroneDto {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String id;
 
     @NotBlank
     @Size(max = 100)

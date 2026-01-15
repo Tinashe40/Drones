@@ -1,6 +1,6 @@
 package com.tinashe.dronesbackend.repository;
 
-import com.tinashe.dronesbackend.common.BaseDao;
+import com.tinashe.dronesbackend.common.jpa.BaseDao;
 import com.tinashe.dronesbackend.model.Drone;
 import com.tinashe.dronesbackend.enums.DroneState;
 import org.springframework.stereotype.Repository;
