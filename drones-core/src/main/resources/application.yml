@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/drones
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: tina
+    password: sudo0047
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+application:
+  security:
+    jwt:
+      secret-key: MzMyNzdmNzMxMWZlYzQ3NzAxNjkyZGE4ZGFhNTM4Nzc3YTE1N2FmYmMwMjFlNGQ5NjU4NDk3M2I4MmE2NDgwMQ== # This should be a strong, unique key
+      expiration: 86400000 # 24 hours
